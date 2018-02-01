@@ -26,4 +26,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void createMatch(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, CreateMatchActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void createSetting(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, CreateSettingActivity.class);
+        startActivity(intent);
+
+    }
+
 }

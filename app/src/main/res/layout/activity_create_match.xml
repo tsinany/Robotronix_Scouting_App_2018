@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleMatchTextView"
+        android:layout_width="120dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="bla"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/matchNoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Numero du match"
+        app:layout_constraintStart_toStartOf="@+id/matchNoEditText"
+        app:layout_constraintTop_toBottomOf="@+id/titleMatchTextView" />
+
+    <EditText
+        android:id="@+id/matchNoEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/robotNoTextView"
+        app:layout_constraintTop_toBottomOf="@+id/matchNoTextView" />
+
+    <TextView
+        android:id="@+id/robotNoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Numero du robot"
+        app:layout_constraintStart_toStartOf="@+id/robotNoEditText"
+        app:layout_constraintTop_toBottomOf="@+id/matchNoEditText" />
+
+    <EditText
+        android:id="@+id/robotNoEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/scoutMatchButton"
+        app:layout_constraintTop_toBottomOf="@+id/robotNoTextView" />
+
+    <Button
+        android:id="@+id/scoutMatchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:text="scout le match"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/robotNoEditText"
+        tools:layout_editor_absoluteX="56dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="56dp" />
+</android.support.constraint.ConstraintLayout>
