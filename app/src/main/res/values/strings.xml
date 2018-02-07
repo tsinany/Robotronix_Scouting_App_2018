@@ -1,5 +1,60 @@
 <resources>
+    <!-- Name for the application [CHAR LIMIT=12] -->
     <string name="app_name">Robotronix_Scouting_App</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+
+
+    <!-- Label for overflow menu option that inserts fake scout data into the app [CHAR LIMIT=20] -->
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+
+    <!-- Label for overflow menu option that deletes all scout data in the app [CHAR LIMIT=20] -->
+    <string name="action_delete_all_entries">Delete All Scouts</string>
+
+    <!-- Title for the activity to add a new scout [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_new_scout">Add a Scout</string>
+
+    <!-- Label for editor menu option to save scout and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current scout [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Toast message in editor when new scout has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_scout_successful">Scout saved</string>
+
+    <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_scout_failed">Error with saving scout</string>
+
+    <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
+    <string name="category_overview">Overview</string>
+
+    <!-- Label for gender information in the editor [CHAR LIMIT=30] -->
+    <string name="category_gender">Gender</string>
+
+    <!-- Label for measurement information in the editor [CHAR LIMIT=30] -->
+    <string name="category_measurement">Measurement</string>
+
+    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_scout_name">Name</string>
+
+    <!-- Text hint for breed field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_scout_breed">Breed</string>
+
+    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_scout_weight">Weight</string>
+
+    <!-- Units for weight of the scout (kilograms) [CHAR LIMIT=5] -->
+    <string name="unit_scout_weight">kg</string>
+
+    <!-- Label for dropdown menu option if the scout's gender is unknown [CHAR LIMIT=20] -->
+    <string name="gender_unknown">Unknown</string>
+
+    <!-- Label for dropdown menu option if the scout is male [CHAR LIMIT=20] -->
+    <string name="gender_male">Male</string>
+
+    <!-- Label for dropdown menu option if the scout is female [CHAR LIMIT=20] -->
+    <string name="gender_female">Female</string>
+
+
 </resources>

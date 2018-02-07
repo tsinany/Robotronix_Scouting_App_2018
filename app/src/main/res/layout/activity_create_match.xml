@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".CreateMatchActivity">
 
-    <TextView
+
+<TextView
         android:id="@+id/titleMatchTextView"
         android:layout_width="120dp"
         android:layout_height="17dp"
@@ -21,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Numero du match"
-        app:layout_constraintStart_toStartOf="@+id/matchNoEditText"
-        app:layout_constraintTop_toBottomOf="@+id/titleMatchTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/titleMatchTextView"
+        tools:layout_editor_absoluteX="56dp" />
 
     <EditText
         android:id="@+id/matchNoEditText"
@@ -31,7 +33,7 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/robotNoTextView"
+        app:layout_constraintStart_toStartOf="@+id/matchNoTextView"
         app:layout_constraintTop_toBottomOf="@+id/matchNoTextView" />
 
     <TextView
@@ -40,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Numero du robot"
-        app:layout_constraintStart_toStartOf="@+id/robotNoEditText"
+        app:layout_constraintStart_toStartOf="@+id/matchNoEditText"
         app:layout_constraintTop_toBottomOf="@+id/matchNoEditText" />
 
     <EditText
@@ -50,7 +52,7 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/scoutMatchButton"
+        app:layout_constraintStart_toStartOf="@+id/robotNoTextView"
         app:layout_constraintTop_toBottomOf="@+id/robotNoTextView" />
 
     <Button
@@ -59,9 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
+        android:onClick="insertScout"
         android:text="scout le match"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/robotNoEditText"
+        app:layout_constraintTop_toBottomOf="@+id/scoutNameEditText"
+        app:layout_constraintVertical_bias="0.501"
         tools:layout_editor_absoluteX="56dp" />
 
     <android.support.constraint.Guideline
@@ -70,4 +74,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="56dp" />
+
+    <TextView
+        android:id="@+id/ScoutNametextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Nom du Scout"
+        app:layout_constraintStart_toStartOf="@+id/robotNoEditText"
+        app:layout_constraintTop_toBottomOf="@+id/robotNoEditText" />
+
+    <EditText
+        android:id="@+id/scoutNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="@+id/ScoutNametextView"
+        app:layout_constraintTop_toBottomOf="@+id/ScoutNametextView" />
 </android.support.constraint.ConstraintLayout>
