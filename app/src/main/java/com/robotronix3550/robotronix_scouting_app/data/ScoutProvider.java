@@ -7,22 +7,31 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.robotronix3550.robotronix_scouting_app.data.ScoutContract.ScoutEntry;
+
+import java.io.IOException;
 
 /**
  * {@link ContentProvider} for Scouts app.
  */
 public class ScoutProvider extends ContentProvider {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = ScoutProvider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the scouts table */
+    /**
+     * URI matcher code for the content URI for the scouts table
+     */
     private static final int SCOUTS = 100;
 
-    /** URI matcher code for the content URI for a single scout in the scouts table */
+    /**
+     * URI matcher code for the content URI for a single scout in the scouts table
+     */
     private static final int SCOUT_ID = 101;
 
     /**
@@ -53,12 +62,18 @@ public class ScoutProvider extends ContentProvider {
         sUriMatcher.addURI(ScoutContract.CONTENT_AUTHORITY, ScoutContract.PATH_SCOUTS + "/#", SCOUT_ID);
     }
 
-    /** Database helper object */
+    /**
+     * Database helper object
+     */
     private ScoutDBHelper mDbHelper;
+
+    SqliteExporter dbExport;
+
 
     @Override
     public boolean onCreate() {
         mDbHelper = new ScoutDBHelper(getContext());
+        dbExport = new SqliteExporter();
         return true;
     }
 
@@ -91,7 +106,7 @@ public class ScoutProvider extends ContentProvider {
                 // arguments that will fill in the "?". Since we have 1 question mark in the
                 // selection, we have 1 String in the selection arguments' String array.
                 selection = ScoutEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
                 // This will perform a query on the scouts table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
@@ -168,7 +183,7 @@ public class ScoutProvider extends ContentProvider {
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = ScoutEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateScout(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
@@ -236,7 +251,7 @@ public class ScoutProvider extends ContentProvider {
             case SCOUT_ID:
                 // Delete a single row given by the ID in the URI
                 selection = ScoutEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return database.delete(ScoutEntry.TABLE_NAME, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
@@ -255,4 +270,35 @@ public class ScoutProvider extends ContentProvider {
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
     }
+
+    @Override
+    public Bundle call(String method, String arg, Bundle extras) {
+
+        Bundle bu = new Bundle();
+
+        if(method.equals("exportDB")) {
+            // Do whatever it is you need to do
+            exportDB();
+            return bu;
+        } else {
+            return null;
+        }
+    }
+    public void exportDB( ) {
+
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        try {
+            dbExport.export(db);
+            Log.e(LOG_TAG, "Called export on sqliteExporter");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
+
+

@@ -26,6 +26,12 @@
     <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_scout_failed">Error with saving scout</string>
 
+    <!-- Toast message in editor when new scout has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="exportDB_scout_successful">Database export successfull</string>
+
+    <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="exportDB_scout_failed">Error with database export</string>
+
     <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
     <string name="category_overview">Overview</string>
 
