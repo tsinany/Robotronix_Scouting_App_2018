@@ -7,18 +7,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.robotronix3550.robotronix_scouting_app.data.ScoutContract;
-import com.robotronix3550.robotronix_scouting_app.data.ScoutDBHelper;
-import com.robotronix3550.robotronix_scouting_app.data.SqliteExporter;
 
 public class CreateSettingActivity extends AppCompatActivity {
 
-    /** Database helper object */
-    //private ScoutDBHelper mDbHelper;
+    /** EditText field to enter the event name */
+    private EditText mEventEditText;
 
+    /** EditText field to enter tablet name */
+    private EditText mTabletNameEditText;
+
+    /** EditText field to enter the directory */
+    private EditText mPathEditText;
+
+    private String mFileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +40,34 @@ public class CreateSettingActivity extends AppCompatActivity {
         titleTextView.setText(message);
 
         // mDbHelper = new ScoutDBHelper(getContext());
+        // Find all relevant views that we will need to read user input from
+        mEventEditText = (EditText) findViewById(R.id.eventNameTextEdit);
+        mTabletNameEditText = (EditText) findViewById(R.id.tabletNameEditText);
 
+        mPathEditText = (EditText) findViewById(R.id.dirEditText);
+        mPathEditText.setText("/Storage/Documents/scouting");
+
+        TextView fileNameTextView = findViewById(R.id.fileNameTextView);
+        mFileName =  "scout_" + mEventEditText.getText().toString().trim() +
+                    "_" + mTabletNameEditText.getText().toString().trim() + ".csv";
+        fileNameTextView.setText(mFileName);
 
     }
 
     public void exportDB(View view) {
 
-        /*
+
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        String nameString = mNameEditText.getText().toString().trim();
-        String matchString = mMatchEditText.getText().toString().trim();
-        String robotString = mRobotEditText.getText().toString().trim();
-        int match = Integer.parseInt(matchString);
-        int robot = Integer.parseInt(robotString);
+        String eventString = mEventEditText.getText().toString().trim();
+        String tabletString = mTabletNameEditText.getText().toString().trim();
+        String pathString = mPathEditText.getText().toString().trim();
 
-        // Create a ContentValues object where column names are the keys,
-        // and scout attributes from the editor are the values.
-        ContentValues values = new ContentValues();
-        values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_SCOUTER, nameString);
-        values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_MATCH, match);
-        values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT, robot);
-        */
+        mFileName =  "scout_" + mEventEditText.getText().toString().trim() +
+                "_" + mTabletNameEditText.getText().toString().trim() + ".csv";
+
         // Insert a new scout into the provider, returning the content URI for the new scout.
-        Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", null, null);
+        Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", mFileName, null);
                 //getContentResolver().insert(ScoutContract.ScoutEntry.CONTENT_URI, values);
 
         // Show a toast message depending on whether or not the insertion was successful

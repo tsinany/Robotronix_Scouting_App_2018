@@ -278,18 +278,18 @@ public class ScoutProvider extends ContentProvider {
 
         if(method.equals("exportDB")) {
             // Do whatever it is you need to do
-            exportDB();
+            exportDB( arg );
             return bu;
         } else {
             return null;
         }
     }
-    public void exportDB( ) {
+    public void exportDB(String FileName ) {
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         try {
-            dbExport.export(db);
+            dbExport.export(db, FileName);
             Log.e(LOG_TAG, "Called export on sqliteExporter");
 
         } catch (IOException e) {

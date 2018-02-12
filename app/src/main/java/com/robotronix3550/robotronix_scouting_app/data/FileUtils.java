@@ -43,11 +43,13 @@ public class FileUtils {
     /* creates a directory for scouting data in the public document directory */
     public static File getDocumentDir(String ScoutingDir) {
         // Get the directory for the user's public document directory.
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), ScoutingDir);
-        if (!file.mkdirs()) {
-            Log.e(LOG_TAG, "Scouting directory not created");
-        }
+        //File file = new File(Environment.getExternalStoragePublicDirectory(
+        //        Environment.DIRECTORY_DOCUMENTS), ScoutingDir);
+        File file = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath(),ScoutingDir);
+
+        //if (!file.mkdirs()) {
+        //    Log.e(LOG_TAG, "Scouting directory not created");
+        //}
         return file;
     }
 

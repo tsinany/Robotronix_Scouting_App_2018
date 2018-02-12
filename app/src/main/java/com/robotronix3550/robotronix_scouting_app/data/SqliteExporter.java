@@ -31,13 +31,13 @@ public class SqliteExporter {
     public static final String DB_SCOUTING_DB_VERSION_KEY = "dbVersion";
     public static final String DB_SCOUTING_TABLE_NAME = "table";
 
-    public static String export(SQLiteDatabase db) throws IOException{
+    public static String export(SQLiteDatabase db, String fileName ) throws IOException{
         if( !FileUtils.isExternalStorageWritable() ){
             throw new IOException("Cannot write to external storage");
         }
         // File scoutingDir = FileUtils.createDirIfNotExist(FileUtils.getAppDir() + "/scouting");
         File DocumentDir = FileUtils.getDocumentDir("Scouting");
-        String fileName = FileUtils.createScoutingFileName();
+        // String fileName = FileUtils.createScoutingFileName();
         File scoutingFile = new File(DocumentDir, fileName);
         boolean success = scoutingFile.createNewFile();
         if(!success){
