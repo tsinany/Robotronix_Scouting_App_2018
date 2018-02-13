@@ -77,6 +77,10 @@ public class CreateMatchActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.editor_insert_scout_successful),
                     Toast.LENGTH_SHORT).show();
         }
+
+        Intent intent = new Intent(this, ScoutMatchActivity.class);
+        startActivity(intent);
+
     }
 
 }

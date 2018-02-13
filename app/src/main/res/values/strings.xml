@@ -61,6 +61,7 @@
 
     <!-- Label for dropdown menu option if the scout is female [CHAR LIMIT=20] -->
     <string name="gender_female">Female</string>
+    <string name="title_activity_scout_match">ScoutMatch</string>
 
 
 </resources>
