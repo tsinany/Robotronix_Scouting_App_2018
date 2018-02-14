@@ -8,12 +8,21 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
+
+    String mScouter;
+
+    String mTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        mScouter = intent.getStringExtra(CreateMatchActivity.EXTRA_SCOUTER);
+        mTablet = intent.getStringExtra(CreateSettingActivity.EXTRA_TABLET);
+
     }
 
     /*
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public void createMatch(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, CreateMatchActivity.class);
+        intent.putExtra(CreateMatchActivity.EXTRA_SCOUTER, mScouter);
         startActivity(intent);
 
     }
@@ -38,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public void createSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, CreateSettingActivity.class);
+        intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
         startActivity(intent);
 
     }

@@ -15,6 +15,8 @@ import com.robotronix3550.robotronix_scouting_app.data.ScoutContract;
 
 public class CreateSettingActivity extends AppCompatActivity {
 
+    public static final String EXTRA_TABLET = "com.robotronix3550.robotronix_scouting_app.TABLET";
+
     /** EditText field to enter the event name */
     private EditText mEventEditText;
 
@@ -26,6 +28,8 @@ public class CreateSettingActivity extends AppCompatActivity {
 
     private String mFileName;
 
+    private String mTablet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,8 @@ public class CreateSettingActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
+        mTablet = intent.getStringExtra(EXTRA_TABLET);
+
         String message = "Paramètres";
 
         // Capture the layout's TextView and set the string as its text
@@ -43,6 +49,7 @@ public class CreateSettingActivity extends AppCompatActivity {
         // Find all relevant views that we will need to read user input from
         mEventEditText = (EditText) findViewById(R.id.eventNameTextEdit);
         mTabletNameEditText = (EditText) findViewById(R.id.tabletNameEditText);
+        mTabletNameEditText.setText(mTablet);
 
         mPathEditText = (EditText) findViewById(R.id.dirEditText);
         mPathEditText.setText("/Storage/Documents/scouting");
@@ -60,11 +67,10 @@ public class CreateSettingActivity extends AppCompatActivity {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String eventString = mEventEditText.getText().toString().trim();
-        String tabletString = mTabletNameEditText.getText().toString().trim();
+        mTablet = mTabletNameEditText.getText().toString().trim();
         String pathString = mPathEditText.getText().toString().trim();
 
-        mFileName =  "scout_" + mEventEditText.getText().toString().trim() +
-                "_" + mTabletNameEditText.getText().toString().trim() + ".csv";
+        mFileName =  "scout_" + eventString + "_" + mTablet + ".csv";
 
         // Insert a new scout into the provider, returning the content URI for the new scout.
         Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", mFileName, null);
@@ -81,6 +87,10 @@ public class CreateSettingActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(EXTRA_TABLET, mTablet);
+
+        startActivity(intent);
 
 
     }

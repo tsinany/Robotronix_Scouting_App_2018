@@ -36,7 +36,7 @@
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/MatchEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,7 +62,7 @@
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/RobotEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -215,6 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
+                android:textAlignment="center"
                 android:textSize="30sp" />
 
             <Space
@@ -283,6 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
+                android:textAlignment="center"
                 android:textSize="30sp" />
 
             <Space
@@ -351,6 +353,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
+                android:textAlignment="center"
                 android:textSize="30sp" />
 
             <Space
@@ -419,6 +422,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0"
+                android:textAlignment="center"
                 android:textSize="30sp" />
 
             <Space
@@ -558,6 +562,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:text="0"
+                android:textAlignment="viewEnd"
                 android:textSize="24sp" />
 
             <Space
@@ -603,6 +608,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:text="0"
+                android:textAlignment="viewEnd"
                 android:textSize="24sp" />
 
             <Space
@@ -630,6 +636,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="saveMatch"
                 android:text="Sauver" />
 
             <Space

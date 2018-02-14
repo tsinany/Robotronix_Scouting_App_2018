@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.robotronix3550.robotronix_scouting_app.data.ScoutContract.ScoutEntry;
 
 public class CreateMatchActivity extends AppCompatActivity {
 
@@ -24,6 +23,15 @@ public class CreateMatchActivity extends AppCompatActivity {
     /** EditText field to enter the scout's robot */
     private EditText mRobotEditText;
 
+    String mScouter;
+
+
+    public static final String EXTRA_SCOUTER = "com.robotronix3550.robotronix_scouting_app.SCOUTER";
+
+    public static final String EXTRA_MATCH = "com.robotronix3550.robotronix_scouting_app.MATCH";
+
+    public static final String EXTRA_ROBOT = "com.robotronix3550.robotronix_scouting_app.ROBOT";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +39,8 @@ public class CreateMatchActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
+        mScouter = intent.getStringExtra(EXTRA_SCOUTER);
+
         String message = "Scouter un Match";
 
         // Capture the layout's TextView and set the string as its text
@@ -42,43 +52,28 @@ public class CreateMatchActivity extends AppCompatActivity {
         mMatchEditText = (EditText) findViewById(R.id.matchNoEditText);
         mRobotEditText = (EditText) findViewById(R.id.robotNoEditText);
 
+        mNameEditText.setText(mScouter);
+
     }
 
 
     /**
      * Get user input from editor and save new scout into database.
      */
-    public void insertScout(View view) {
+    public void createMatch(View view) {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        String nameString = mNameEditText.getText().toString().trim();
+        mScouter = mNameEditText.getText().toString().trim();
         String matchString = mMatchEditText.getText().toString().trim();
         String robotString = mRobotEditText.getText().toString().trim();
         int match = Integer.parseInt(matchString);
         int robot = Integer.parseInt(robotString);
 
-        // Create a ContentValues object where column names are the keys,
-        // and scout attributes from the editor are the values.
-        ContentValues values = new ContentValues();
-        values.put(ScoutEntry.COLUMN_SCOUT_SCOUTER, nameString);
-        values.put(ScoutEntry.COLUMN_SCOUT_MATCH, match);
-        values.put(ScoutEntry.COLUMN_SCOUT_ROBOT, robot);
-
-        // Insert a new scout into the provider, returning the content URI for the new scout.
-        Uri newUri = getContentResolver().insert(ScoutEntry.CONTENT_URI, values);
-
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newUri == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_insert_scout_successful),
-                    Toast.LENGTH_SHORT).show();
-        }
-
         Intent intent = new Intent(this, ScoutMatchActivity.class);
+        intent.putExtra(EXTRA_SCOUTER, mScouter);
+        intent.putExtra(EXTRA_MATCH, match);
+        intent.putExtra(EXTRA_ROBOT, robot);
+
         startActivity(intent);
 
     }
