@@ -41,6 +41,8 @@ public class CreateMatchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mScouter = intent.getStringExtra(EXTRA_SCOUTER);
 
+        if(mScouter==null) mScouter = "Name";
+
         String message = "Scouter un Match";
 
         // Capture the layout's TextView and set the string as its text
@@ -76,6 +78,17 @@ public class CreateMatchActivity extends AppCompatActivity {
 
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        Intent intent = new Intent(this, MainActivity.class);
+        mScouter = mNameEditText.getText().toString().trim();
+        intent.putExtra(EXTRA_SCOUTER, mScouter);
+
+        super.onBackPressed();
+        finish();
     }
 
 }

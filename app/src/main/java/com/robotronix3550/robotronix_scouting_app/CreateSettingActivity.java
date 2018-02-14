@@ -2,10 +2,12 @@ package com.robotronix3550.robotronix_scouting_app;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,6 +32,12 @@ public class CreateSettingActivity extends AppCompatActivity {
 
     private String mTablet;
 
+    private SharedPreferences mPrefs;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +45,12 @@ public class CreateSettingActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        mTablet = intent.getStringExtra(EXTRA_TABLET);
+
+        mPrefs = getPreferences(MODE_PRIVATE);
+        mTablet = mPrefs.getString("PREF_TABLET", "tab1");
+
+        //mTablet = intent.getStringExtra(EXTRA_TABLET);
+        //if (mTablet == null) mTablet = "tab1";
 
         String message = "Paramètres";
 
@@ -88,10 +101,42 @@ public class CreateSettingActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_TABLET, mTablet);
+        //intent.putExtra(EXTRA_TABLET, mTablet);
+
+        SharedPreferences.Editor ed = mPrefs.edit();
+        //mTablet = mTabletNameEditText.getText().toString().trim();
+        ed.putString("PREF_TABLET", mTablet);
+        ed.commit();
 
         startActivity(intent);
 
 
     }
+
+    @Override
+    public void onBackPressed(){
+
+        //Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra(EXTRA_TABLET, mTablet);
+
+        SharedPreferences.Editor ed = mPrefs.edit();
+        mTablet = mTabletNameEditText.getText().toString().trim();
+        ed.putString("PREF_TABLET", mTablet);
+        ed.commit();
+        Toast.makeText(this, "saving preferences " + mTablet,
+                Toast.LENGTH_LONG).show();
+
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
+    }
+
 }

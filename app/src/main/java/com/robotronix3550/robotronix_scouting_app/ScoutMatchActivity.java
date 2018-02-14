@@ -142,7 +142,17 @@ public class ScoutMatchActivity extends AppCompatActivity {
         mMatch = Integer.parseInt(matchString);
         mRobot = Integer.parseInt(robotString);
 
+        /*
+        togglebutton = (ToggleButton) findViewById(R.id.togglebutton);
+    }
 
+    public void toggleclick(View v){
+        if(togglebutton.isChecked())
+            Toast.makeText(TestActivity.this, "ON", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(TestActivity.this, "OFF", Toast.LENGTH_SHORT).show();
+    }
+    */
 
         // Create a ContentValues object where column names are the keys,
         // and scout attributes from the editor are the values.

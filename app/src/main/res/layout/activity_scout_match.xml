@@ -102,7 +102,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton"
+                android:id="@+id/LineToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -116,7 +116,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton2"
+                android:id="@+id/PickToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -130,7 +130,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton3"
+                android:id="@+id/ScaleToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -144,7 +144,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton4"
+                android:id="@+id/SwitchToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -471,7 +471,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton5"
+                android:id="@+id/HelpToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -485,7 +485,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton7"
+                android:id="@+id/BrokenToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -499,7 +499,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton6"
+                android:id="@+id/CilmbToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -513,7 +513,7 @@
                 android:layout_weight="1" />
 
             <ToggleButton
-                android:id="@+id/toggleButton8"
+                android:id="@+id/ParkToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -555,7 +555,7 @@
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/AllyScoreEditText"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -601,7 +601,7 @@
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/EnemyScoreEditText"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
