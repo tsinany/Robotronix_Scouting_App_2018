@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Space
@@ -84,7 +84,8 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mode Autonome" />
+            android:text="Mode Autonome"
+            android:textSize="30sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -92,7 +93,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Space
@@ -103,7 +104,7 @@
             <ToggleButton
                 android:id="@+id/toggleButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="ligne"
                 android:textOff="ligne "
@@ -117,7 +118,7 @@
             <ToggleButton
                 android:id="@+id/toggleButton2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="cube"
                 android:textOff="ramasse"
@@ -131,7 +132,7 @@
             <ToggleButton
                 android:id="@+id/toggleButton3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="balance"
                 android:textOff="balance"
@@ -145,7 +146,7 @@
             <ToggleButton
                 android:id="@+id/toggleButton4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="bascule"
                 android:textOff="bascule"
@@ -165,7 +166,8 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mode TeleOp" />
+            android:text="Mode TeleOp"
+            android:textSize="30sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -183,10 +185,11 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="cube dans échangeur" />
+                android:text="cube dans échangeur"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -195,9 +198,10 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="decCubeExchangeCnt"
                 android:text="-" />
 
             <Space
@@ -206,11 +210,12 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+                android:id="@+id/ExchangeCntTextView"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -219,10 +224,12 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:text="+" />
+                android:onClick="incCubeExchangeCnt"
+                android:text="+"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -246,10 +253,11 @@
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="cube dans bascule alliée" />
+                android:text="cube dans bascule alliée"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -258,9 +266,10 @@
 
             <Button
                 android:id="@+id/button3"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="decCubeAllySwitchCnt"
                 android:text="-" />
 
             <Space
@@ -269,11 +278,12 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
+                android:id="@+id/AllySwitchTextView"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -282,10 +292,12 @@
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:text="+" />
+                android:onClick="incCubeAllySwitchCnt"
+                android:text="+"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -309,10 +321,11 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="cube dans balance" />
+                android:text="cube dans balance"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -321,9 +334,10 @@
 
             <Button
                 android:id="@+id/button5"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="decCubeScaleCnt"
                 android:text="-" />
 
             <Space
@@ -332,11 +346,12 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
+                android:id="@+id/ScaleCntTextView"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -345,10 +360,12 @@
 
             <Button
                 android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:text="+" />
+                android:onClick="incCubeScaleCnt"
+                android:text="+"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -372,10 +389,11 @@
 
             <TextView
                 android:id="@+id/textView10"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="cube dans bascule adverse" />
+                android:text="cube dans bascule adverse"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -384,9 +402,10 @@
 
             <Button
                 android:id="@+id/button7"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="decCubeEnemySwitchCnt"
                 android:text="-" />
 
             <Space
@@ -395,11 +414,12 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
+                android:id="@+id/EnemySwitchCntTextView"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -408,10 +428,12 @@
 
             <Button
                 android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:text="+" />
+                android:onClick="incCubeEnemySwitchCnt"
+                android:text="+"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -427,7 +449,8 @@
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fin de partie" />
+            android:text="Fin de partie"
+            android:textSize="30sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -446,40 +469,11 @@
             <ToggleButton
                 android:id="@+id/toggleButton5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="ToggleButton"
-                android:textOff="N'aide pas à grimper"
-                android:textOn="Aide à grimper" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ToggleButton"
-                android:textOff="Ne grimpe pas"
-                android:textOn="a grimpé" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
+                android:textOff="Aide"
+                android:textOn="Aide" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -489,11 +483,25 @@
             <ToggleButton
                 android:id="@+id/toggleButton7"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="ToggleButton"
-                android:textOff="fonctionel"
+                android:textOff="brisé"
                 android:textOn="brisé" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="ToggleButton"
+                android:textOff="grimpe"
+                android:textOn="grimpe" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -503,11 +511,11 @@
             <ToggleButton
                 android:id="@+id/toggleButton8"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="ToggleButton"
-                android:textOff="hors plateforme"
-                android:textOn="sur plateforme" />
+                android:textOff="parking"
+                android:textOn="parking" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -517,11 +525,11 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Space
@@ -531,10 +539,11 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="wrap_content"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Points des alliés" />
+                android:text="Points des alliés"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -543,12 +552,13 @@
 
             <EditText
                 android:id="@+id/editText"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number"
-                android:text="0" />
+                android:text="0"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -564,7 +574,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Space
@@ -574,10 +584,11 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="wrap_content"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Points des adversaires" />
+                android:text="Points des adversaires"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -586,18 +597,23 @@
 
             <EditText
                 android:id="@+id/editText2"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number"
-                android:text="0" />
+                android:text="0"
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -622,9 +638,6 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
