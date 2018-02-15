@@ -2,6 +2,7 @@ package com.robotronix3550.robotronix_scouting_app;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.robotronix3550.robotronix_scouting_app.data.ScoutContract.ScoutEntry;
+
+import static com.robotronix3550.robotronix_scouting_app.CreateMatchActivity.PREFS_SCOUTER;
 
 public class ScoutMatchActivity extends AppCompatActivity {
 
@@ -36,6 +40,19 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
     private TextView mCubeScaleText;
 
+
+    private ToggleButton mLineTogglebutton;
+    private ToggleButton mPickTogglebutton;
+    private ToggleButton mSwitchTogglebutton;
+    private ToggleButton mScaleTogglebutton;
+    private ToggleButton mHelpTogglebutton;
+    private ToggleButton mBrokenTogglebutton;
+    private ToggleButton mClimbTogglebutton;
+    private ToggleButton mParkTogglebutton;
+
+
+    private SharedPreferences mPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +60,13 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        mScouter = intent.getStringExtra(CreateMatchActivity.EXTRA_SCOUTER);
+        // mScouter = intent.getStringExtra(CreateMatchActivity.EXTRA_SCOUTER);
         mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
         mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
+
+        // mPrefs = getPreferences(MODE_PRIVATE);
+        mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE );
+        mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
 
         // Capture the layout's TextView and set the string as its text
         mMatchEditText = findViewById(R.id.MatchEditText);
@@ -70,6 +91,16 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
         mCubeScaleText = (TextView) findViewById(R.id.ScaleCntTextView);
         mCubeScaleText.setText(mCubeScaleCnt.toString());
+
+
+        mLineTogglebutton = (ToggleButton) findViewById(R.id.LineToggleButton);
+        mPickTogglebutton = (ToggleButton) findViewById(R.id.PickToggleButton);
+        mScaleTogglebutton = (ToggleButton) findViewById(R.id.ScaleToggleButton);
+        mSwitchTogglebutton = (ToggleButton) findViewById(R.id.SwitchToggleButton);
+        mHelpTogglebutton = (ToggleButton) findViewById(R.id.HelpToggleButton);
+        mBrokenTogglebutton = (ToggleButton) findViewById(R.id.BrokenToggleButton);
+        mClimbTogglebutton = (ToggleButton) findViewById(R.id.ClimbToggleButton);
+        mParkTogglebutton = (ToggleButton) findViewById(R.id.ParkToggleButton);
 
     }
 
@@ -142,17 +173,67 @@ public class ScoutMatchActivity extends AppCompatActivity {
         mMatch = Integer.parseInt(matchString);
         mRobot = Integer.parseInt(robotString);
 
-        /*
-        togglebutton = (ToggleButton) findViewById(R.id.togglebutton);
-    }
+        Integer auto_line;
+        Integer auto_pick;
+        Integer auto_scale;
+        Integer auto_switch;
 
-    public void toggleclick(View v){
-        if(togglebutton.isChecked())
-            Toast.makeText(TestActivity.this, "ON", Toast.LENGTH_SHORT).show();
+        Integer end_help;
+        Integer end_broken;
+        Integer end_climb;
+        Integer end_park;
+
+        Integer alliance_score;
+        Integer enemy_score;
+
+        EditText AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
+        EditText EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
+
+        String AllianceScoreString = AllyScoreEditText.getText().toString().trim();
+        String EnemyScoreString = EnemyScoreEditText.getText().toString().trim();
+        alliance_score = Integer.parseInt(AllianceScoreString);
+        enemy_score = Integer.parseInt(EnemyScoreString);
+
+        if(mLineTogglebutton.isChecked())
+            auto_line = 1;
         else
-            Toast.makeText(TestActivity.this, "OFF", Toast.LENGTH_SHORT).show();
-    }
-    */
+            auto_line = 0;
+
+        if(mPickTogglebutton.isChecked())
+            auto_pick = 1;
+        else
+            auto_pick = 0;
+
+        if(mScaleTogglebutton.isChecked())
+            auto_scale= 1;
+        else
+            auto_scale = 0;
+
+        if(mSwitchTogglebutton.isChecked())
+            auto_switch = 1;
+        else
+            auto_switch = 0;
+
+        if(mHelpTogglebutton.isChecked())
+            end_help = 1;
+        else
+            end_help = 0;
+
+        if(mBrokenTogglebutton.isChecked())
+            end_broken = 1;
+        else
+            end_broken = 0;
+
+        if(mClimbTogglebutton.isChecked())
+            end_climb = 1;
+        else
+            end_climb = 0;
+
+        if(mParkTogglebutton.isChecked())
+            end_park = 1;
+        else
+            end_park = 0;
+
 
         // Create a ContentValues object where column names are the keys,
         // and scout attributes from the editor are the values.
@@ -165,6 +246,21 @@ public class ScoutMatchActivity extends AppCompatActivity {
         values.put(ScoutEntry.COLUMN_SCOUT_TELE_ALLY_SWITCH, mCubeAllySwitchCnt );
         values.put(ScoutEntry.COLUMN_SCOUT_TELE_SCALE, mCubeScaleCnt );
         values.put(ScoutEntry.COLUMN_SCOUT_TELE_ENEMY_SWITCH, mCubeEnemySwitchCnt );
+
+
+        values.put(ScoutEntry.COLUMN_SCOUT_AUTO_LINE, auto_line );
+        values.put(ScoutEntry.COLUMN_SCOUT_AUTO_CUBE, auto_pick );
+        values.put(ScoutEntry.COLUMN_SCOUT_AUTO_SCALE, auto_scale );
+        values.put(ScoutEntry.COLUMN_SCOUT_AUTO_SWITCH, auto_switch );
+
+        values.put(ScoutEntry.COLUMN_SCOUT_TELE_HELP_CLIMB, end_help );
+        values.put(ScoutEntry.COLUMN_SCOUT_TELE_BROKEN, end_broken );
+        values.put(ScoutEntry.COLUMN_SCOUT_TELE_CLIMB, end_climb );
+        values.put(ScoutEntry.COLUMN_SCOUT_TELE_PARK, end_park );
+
+        values.put(ScoutEntry.COLUMN_SCOUT_GAME_ALLY_SCORE, alliance_score);
+        values.put(ScoutEntry.COLUMN_SCOUT_GAME_ENEMY_SCORE, enemy_score);
+
 
         // Insert a new scout into the provider, returning the content URI for the new scout.
         Uri newUri = getContentResolver().insert(ScoutEntry.CONTENT_URI, values);
@@ -183,7 +279,7 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(CreateMatchActivity.EXTRA_SCOUTER, mScouter);
+        //intent.putExtra(CreateMatchActivity.EXTRA_SCOUTER, mScouter);
 
         startActivity(intent);
 

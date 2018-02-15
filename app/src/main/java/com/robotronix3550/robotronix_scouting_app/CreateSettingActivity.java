@@ -123,8 +123,8 @@ public class CreateSettingActivity extends AppCompatActivity {
         mTablet = mTabletNameEditText.getText().toString().trim();
         ed.putString("PREF_TABLET", mTablet);
         ed.commit();
-        Toast.makeText(this, "saving preferences " + mTablet,
-                Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "saving preferences " + mTablet,
+        //        Toast.LENGTH_LONG).show();
 
         super.onBackPressed();
         finish();

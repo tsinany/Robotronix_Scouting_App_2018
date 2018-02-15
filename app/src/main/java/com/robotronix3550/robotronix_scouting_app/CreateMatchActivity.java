@@ -2,9 +2,11 @@ package com.robotronix3550.robotronix_scouting_app;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 //import android.widget.Spinner;
@@ -25,6 +27,9 @@ public class CreateMatchActivity extends AppCompatActivity {
 
     String mScouter;
 
+    private SharedPreferences mPrefs;
+    public static final String PREFS_SCOUTER = "MyPrefScouterFile";
+
 
     public static final String EXTRA_SCOUTER = "com.robotronix3550.robotronix_scouting_app.SCOUTER";
 
@@ -39,9 +44,11 @@ public class CreateMatchActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        mScouter = intent.getStringExtra(EXTRA_SCOUTER);
+        //mScouter = intent.getStringExtra(EXTRA_SCOUTER);
+        //if(mScouter==null) mScouter = "Name";
+        mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE );
+        mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
 
-        if(mScouter==null) mScouter = "Name";
 
         String message = "Scouter un Match";
 
@@ -71,8 +78,12 @@ public class CreateMatchActivity extends AppCompatActivity {
         int match = Integer.parseInt(matchString);
         int robot = Integer.parseInt(robotString);
 
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putString("PREF_SCOUTER", mScouter);
+        ed.commit();
+
         Intent intent = new Intent(this, ScoutMatchActivity.class);
-        intent.putExtra(EXTRA_SCOUTER, mScouter);
+        //intent.putExtra(EXTRA_SCOUTER, mScouter);
         intent.putExtra(EXTRA_MATCH, match);
         intent.putExtra(EXTRA_ROBOT, robot);
 
@@ -83,12 +94,26 @@ public class CreateMatchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
 
-        Intent intent = new Intent(this, MainActivity.class);
+        // Intent intent = new Intent(this, MainActivity.class);
+        // mScouter = mNameEditText.getText().toString().trim();
+        // intent.putExtra(EXTRA_SCOUTER, mScouter);
+
+        SharedPreferences.Editor ed = mPrefs.edit();
         mScouter = mNameEditText.getText().toString().trim();
-        intent.putExtra(EXTRA_SCOUTER, mScouter);
+        ed.putString("PREF_SCOUTER", mScouter);
+        ed.commit();
 
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
 }
