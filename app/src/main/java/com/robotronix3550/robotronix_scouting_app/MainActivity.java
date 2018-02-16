@@ -54,6 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void reviewMatch(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, ReviewMatchActivity.class);
+        //intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
+        startActivity(intent);
+
+    }
+
+
+
     public void createSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, CreateSettingActivity.class);

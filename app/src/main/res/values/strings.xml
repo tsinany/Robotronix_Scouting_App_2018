@@ -5,7 +5,6 @@
     <string name="button_send">Send</string>
 
 
-
     <!-- Label for overflow menu option that deletes all scout data in the app [CHAR LIMIT=20] -->
     <string name="action_delete_all_entries">Delete All Scouts</string>
 
