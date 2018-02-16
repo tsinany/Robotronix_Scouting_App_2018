@@ -26,7 +26,7 @@ public class CreateSettingActivity extends AppCompatActivity {
     private EditText mTabletNameEditText;
 
     /** EditText field to enter the directory */
-    private EditText mPathEditText;
+    private TextView mPathEditText;
 
     private String mFileName;
 
@@ -64,7 +64,7 @@ public class CreateSettingActivity extends AppCompatActivity {
         mTabletNameEditText = (EditText) findViewById(R.id.tabletNameEditText);
         mTabletNameEditText.setText(mTablet);
 
-        mPathEditText = (EditText) findViewById(R.id.dirEditText);
+        mPathEditText = (TextView) findViewById(R.id.dirEditText);
         mPathEditText.setText("/Storage/Documents/scouting");
 
         TextView fileNameTextView = findViewById(R.id.fileNameTextView);
@@ -81,35 +81,46 @@ public class CreateSettingActivity extends AppCompatActivity {
         // Use trim to eliminate leading or trailing white space
         String eventString = mEventEditText.getText().toString().trim();
         mTablet = mTabletNameEditText.getText().toString().trim();
-        String pathString = mPathEditText.getText().toString().trim();
+        //String pathString = mPathEditText.getText().toString().trim();
 
-        mFileName =  "scout_" + eventString + "_" + mTablet + ".csv";
+        if( eventString.equals("")) {
 
-        // Insert a new scout into the provider, returning the content URI for the new scout.
-        Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", mFileName, null);
-                //getContentResolver().insert(ScoutContract.ScoutEntry.CONTENT_URI, values);
-
-        // Show a toast message depending on whether or not the insertion was successful
-        if (bu == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.exportDB_scout_failed),
+            Toast.makeText(this, getString(R.string.missing_event_failed),
                     Toast.LENGTH_LONG).show();
+
+        } else if ( mTablet.equals("")) {
+
+            Toast.makeText(this, getString(R.string.missing_tablet_failed),
+                    Toast.LENGTH_LONG).show();
+
         } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.exportDB_scout_successful),
-                    Toast.LENGTH_LONG).show();
+            mFileName = "scout_" + eventString + "_" + mTablet + ".csv";
+
+            // Insert a new scout into the provider, returning the content URI for the new scout.
+            Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", mFileName, null);
+            //getContentResolver().insert(ScoutContract.ScoutEntry.CONTENT_URI, values);
+
+            // Show a toast message depending on whether or not the insertion was successful
+            if (bu == null) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(this, getString(R.string.exportDB_scout_failed),
+                        Toast.LENGTH_LONG).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.exportDB_scout_successful),
+                        Toast.LENGTH_LONG).show();
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            //intent.putExtra(EXTRA_TABLET, mTablet);
+
+            SharedPreferences.Editor ed = mPrefs.edit();
+            //mTablet = mTabletNameEditText.getText().toString().trim();
+            ed.putString("PREF_TABLET", mTablet);
+            ed.commit();
+
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra(EXTRA_TABLET, mTablet);
-
-        SharedPreferences.Editor ed = mPrefs.edit();
-        //mTablet = mTabletNameEditText.getText().toString().trim();
-        ed.putString("PREF_TABLET", mTablet);
-        ed.commit();
-
-        startActivity(intent);
-
 
     }
 

@@ -71,14 +71,12 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/tabletNameEditText" />
 
-    <EditText
+    <TextView
         android:id="@+id/dirEditText"
         android:layout_width="326dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/dirTextView" />
@@ -94,25 +92,14 @@
         app:layout_constraintTop_toBottomOf="@+id/dirEditText" />
 
     <Button
-        android:id="@+id/ImportDbButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="Import DB"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/fileNameTextView" />
-
-    <Button
         android:id="@+id/ExportDbButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:onClick="exportDB"
         android:text="EXPORT DB"
-        app:layout_constraintStart_toEndOf="@+id/ImportDbButton"
-        app:layout_constraintTop_toBottomOf="@+id/fileNameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/fileNameTextView"
+        tools:layout_editor_absoluteX="219dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"

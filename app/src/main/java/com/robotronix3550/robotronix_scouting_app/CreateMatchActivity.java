@@ -75,19 +75,39 @@ public class CreateMatchActivity extends AppCompatActivity {
         mScouter = mNameEditText.getText().toString().trim();
         String matchString = mMatchEditText.getText().toString().trim();
         String robotString = mRobotEditText.getText().toString().trim();
-        int match = Integer.parseInt(matchString);
-        int robot = Integer.parseInt(robotString);
+        int match;
+        int robot;
 
-        SharedPreferences.Editor ed = mPrefs.edit();
-        ed.putString("PREF_SCOUTER", mScouter);
-        ed.commit();
+        if (matchString.equals("")) {
 
-        Intent intent = new Intent(this, ScoutMatchActivity.class);
-        //intent.putExtra(EXTRA_SCOUTER, mScouter);
-        intent.putExtra(EXTRA_MATCH, match);
-        intent.putExtra(EXTRA_ROBOT, robot);
+            Toast.makeText(this, getString(R.string.missing_match_failed),
+                    Toast.LENGTH_LONG).show();
 
-        startActivity(intent);
+        } else if (robotString.equals("")) {
+
+            Toast.makeText(this, getString(R.string.missing_robot_failed),
+                    Toast.LENGTH_LONG).show();
+
+        } else if (mScouter.equals("")) {
+            Toast.makeText(this, getString(R.string.missing_scouter_failed),
+                    Toast.LENGTH_LONG).show();
+
+        }else {
+
+            match = Integer.parseInt(matchString);
+            robot = Integer.parseInt(robotString);
+
+            SharedPreferences.Editor ed = mPrefs.edit();
+            ed.putString("PREF_SCOUTER", mScouter);
+            ed.commit();
+
+            Intent intent = new Intent(this, ScoutMatchActivity.class);
+            //intent.putExtra(EXTRA_SCOUTER, mScouter);
+            intent.putExtra(EXTRA_MATCH, match);
+            intent.putExtra(EXTRA_ROBOT, robot);
+
+            startActivity(intent);
+        }
 
     }
 

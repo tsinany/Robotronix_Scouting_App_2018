@@ -40,7 +40,16 @@ public class MainActivity extends AppCompatActivity {
     public void createMatch(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, CreateMatchActivity.class);
-        intent.putExtra(CreateMatchActivity.EXTRA_SCOUTER, mScouter);
+        // intent.putExtra(CreateMatchActivity.EXTRA_SCOUTER, mScouter);
+        startActivity(intent);
+
+    }
+
+
+    public void scoutPit(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, ScoutPitActivity.class);
+        //intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
         startActivity(intent);
 
     }
@@ -48,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public void createSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, CreateSettingActivity.class);
-        intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
+        //intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
         startActivity(intent);
 
     }
