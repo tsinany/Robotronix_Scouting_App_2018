@@ -6,6 +6,7 @@ package com.robotronix3550.robotronix_scouting_app.data;
 
 public class ScoutInfo {
 
+    Integer db_id;
     Integer Match;
     Integer Robot;
     String  Scouter;
@@ -31,7 +32,8 @@ public class ScoutInfo {
 
     Integer robotImageId;
 
-    public ScoutInfo(Integer match, Integer robot) {
+    public ScoutInfo(Integer id, Integer match, Integer robot) {
+        db_id = id;
         Match = match;
         Robot = robot;
     }

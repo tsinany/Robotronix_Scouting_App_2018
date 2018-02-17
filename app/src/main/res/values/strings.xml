@@ -39,6 +39,11 @@
     <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="exportDB_scout_failed">Error with database export</string>
 
+    <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="queryDB_scout_failed">Error with database query</string>
+
+
+
     <string name="title_activity_scout_match">ScoutMatch</string>
 
 
