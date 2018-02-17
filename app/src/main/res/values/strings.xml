@@ -25,6 +25,9 @@
     <string name="missing_match_failed">Error, missing match number!</string>
 
     <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="create_match_failed">Error, match number 0 is reserve for Pit scouting!</string>
+
+    <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="missing_scouter_failed">Error, missing scouter name!</string>
 
     <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->

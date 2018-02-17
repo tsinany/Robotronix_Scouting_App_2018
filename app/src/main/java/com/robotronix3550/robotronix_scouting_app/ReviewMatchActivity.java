@@ -1,8 +1,10 @@
 package com.robotronix3550.robotronix_scouting_app;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewMatchActivity extends AppCompatActivity {
+
+    public static final String EXTRA_DB_ID = "com.robotronix3550.robotronix_scouting_app.DB_ID";
 
     public static final String TAG = ReviewMatchActivity.class.getSimpleName();
     private ScoutDBHelper mDbHelper;
@@ -85,7 +89,7 @@ public class ReviewMatchActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                 // Get the {@link Word} object at the given position the user clicked on
                 ScoutInfo info = ReviewInfos.get(position);
@@ -93,12 +97,21 @@ public class ReviewMatchActivity extends AppCompatActivity {
                 if( info.getMatch() == 0 ) {
 
                     Intent intent = new Intent(getBaseContext(), ScoutPitActivity.class);
-                    //intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
+                    intent.putExtra(EXTRA_DB_ID, info.getDb_id());
                     startActivity(intent);
                 } else {
 
                     Intent intent = new Intent(getBaseContext(), ScoutMatchActivity.class);
-                    //intent.putExtra(CreateSettingActivity.EXTRA_TABLET, mTablet);
+                    Log.d("REVIEW", "position : " + position);
+                    Log.d("REVIEW", "id : " + id);
+                    Log.d("REVIEW", "info match : " + info.getMatch());
+                    Log.d("REVIEW", "info robot : " + info.getRobot());
+
+                    Uri currentScoutUri = ContentUris.withAppendedId(ScoutContract.ScoutEntry.CONTENT_URI, (position+1));
+                    intent.setData(currentScoutUri);
+                    Log.d("REVIEW", "uri : " + currentScoutUri.toString());
+
+                    //intent.putExtra(EXTRA_DB_ID, info.getDb_id());
                     startActivity(intent);
 
                 }

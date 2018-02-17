@@ -38,6 +38,14 @@ public class ScoutInfo {
         Robot = robot;
     }
 
+    public Integer getDb_id() {
+        return db_id;
+    }
+
+    public void setDb_id(Integer db_id) {
+        this.db_id = db_id;
+    }
+
     public Integer getMatch() {
         return Match;
     }

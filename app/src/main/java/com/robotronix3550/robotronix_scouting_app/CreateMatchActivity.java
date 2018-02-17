@@ -83,6 +83,11 @@ public class CreateMatchActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.missing_match_failed),
                     Toast.LENGTH_LONG).show();
 
+        } else if (matchString.equals("0")) {
+
+            Toast.makeText(this, getString(R.string.create_match_failed),
+                    Toast.LENGTH_LONG).show();
+
         } else if (robotString.equals("")) {
 
             Toast.makeText(this, getString(R.string.missing_robot_failed),

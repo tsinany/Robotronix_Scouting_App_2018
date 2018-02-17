@@ -105,8 +105,13 @@ public class ScoutProvider extends ContentProvider {
                 // For every "?" in the selection, we need to have an element in the selection
                 // arguments that will fill in the "?". Since we have 1 question mark in the
                 // selection, we have 1 String in the selection arguments' String array.
-                selection = ScoutEntry._ID + "=?";
-                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                // Doesn't work
+                // selection = ScoutEntry._ID + "=?";
+                selection = ScoutEntry._ID + "=" + String.valueOf(ContentUris.parseId(uri));
+
+                // Doesn't work
+                //selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = null;
 
                 // This will perform a query on the scouts table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
