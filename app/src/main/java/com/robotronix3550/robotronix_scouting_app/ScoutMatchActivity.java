@@ -32,6 +32,18 @@ public class ScoutMatchActivity extends AppCompatActivity {
     Integer mRobot;
     Integer mMatch;
     String mScouter;
+    Integer auto_line;
+    Integer auto_pick;
+    Integer auto_scale;
+    Integer auto_switch;
+
+    Integer end_help;
+    Integer end_broken;
+    Integer end_climb;
+    Integer end_park;
+
+    Integer alliance_score;
+    Integer enemy_score;
 
     /** EditText field to enter the scout's match */
     private EditText mMatchEditText;
@@ -57,6 +69,8 @@ public class ScoutMatchActivity extends AppCompatActivity {
     private ToggleButton mClimbTogglebutton;
     private ToggleButton mParkTogglebutton;
 
+    private EditText AllyScoreEditText;
+    private EditText EnemyScoreEditText;
 
     private SharedPreferences mPrefs;
 
@@ -71,8 +85,6 @@ public class ScoutMatchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mCurrentScoutUri = intent.getData();
 
-        Integer db_id = intent.getIntExtra(ReviewMatchActivity.EXTRA_DB_ID, -1);
-
         if( mCurrentScoutUri == null) {
             mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
             mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
@@ -85,6 +97,19 @@ public class ScoutMatchActivity extends AppCompatActivity {
             mCubeAllySwitchCnt = 0;
             mCubeEnemySwitchCnt = 0;
             mCubeScaleCnt = 0;
+
+            auto_line = 0;
+            auto_pick = 0;
+            auto_scale = 0;
+            auto_switch = 0;
+
+            end_help = 0;
+            end_broken = 0;
+            end_climb = 0;
+            end_park = 0;
+
+            alliance_score = 0;
+            enemy_score = 0;
 
         } else {
 
@@ -102,8 +127,26 @@ public class ScoutMatchActivity extends AppCompatActivity {
                 Log.d(TAG, debug);
 
                 // Find the columns of pet attributes that we're interested in
-                int matchColumnIndex = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_MATCH);
-                int robotColumnIndex = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_ROBOT);
+                int matchColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_MATCH);
+                int robotColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_ROBOT);
+                int scouterColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_SCOUTER);
+
+                int autoLineColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_AUTO_LINE);
+                int autoPickColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_AUTO_CUBE);
+                int autoScaleColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_AUTO_SCALE);
+                int autoSwitchColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_AUTO_SWITCH);
+                int endBrokenColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_BROKEN);
+                int endHelpColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_HELP_CLIMB);
+                int endClimbColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_CLIMB);
+                int endParkColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_PARK);
+                int teleExchColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_EXCHANGE);
+                int teleAllySwitchColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_ALLY_SWITCH);
+                int teleEnemySwitchColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_ENEMY_SWITCH);
+                int teleScaleColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_TELE_SCALE);
+
+                int gameAllyScoreColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_GAME_ALLY_SCORE);
+                int gameEnemyScoreColIdx = cursor.getColumnIndex(ScoutEntry.COLUMN_SCOUT_GAME_ENEMY_SCORE);
+
                 /*
                 int count = cursor.getCount();
                 int pos = cursor.getPosition();
@@ -116,13 +159,26 @@ public class ScoutMatchActivity extends AppCompatActivity {
                 boolean isFirst = cursor.isFirst();
 
                 // db_id = cursor.getInt(0);
-                mMatch = cursor.getInt(matchColumnIndex);
-                mRobot = cursor.getInt(robotColumnIndex);
+                mMatch = cursor.getInt(matchColIdx);
+                mRobot = cursor.getInt(robotColIdx);
+                mScouter = cursor.getString(scouterColIdx);
 
-                mCubeExchangeCnt = 0;
-                mCubeAllySwitchCnt = 0;
-                mCubeEnemySwitchCnt = 0;
-                mCubeScaleCnt = 0;
+                mCubeExchangeCnt = cursor.getInt(teleExchColIdx);
+                mCubeAllySwitchCnt = cursor.getInt(teleAllySwitchColIdx);
+                mCubeEnemySwitchCnt = cursor.getInt(teleEnemySwitchColIdx);
+                mCubeScaleCnt = cursor.getInt(teleScaleColIdx);
+                auto_line = cursor.getInt(autoLineColIdx);
+                auto_pick = cursor.getInt(autoPickColIdx);
+                auto_scale = cursor.getInt(autoScaleColIdx);
+                auto_switch = cursor.getInt(autoSwitchColIdx);
+
+                end_help = cursor.getInt(endHelpColIdx);
+                end_broken = cursor.getInt(endBrokenColIdx);
+                end_climb = cursor.getInt(endClimbColIdx);
+                end_park = cursor.getInt(endParkColIdx);
+
+                alliance_score = cursor.getInt(gameAllyScoreColIdx);
+                enemy_score = cursor.getInt(gameEnemyScoreColIdx);
 
 
             }
@@ -164,6 +220,47 @@ public class ScoutMatchActivity extends AppCompatActivity {
         mBrokenTogglebutton = (ToggleButton) findViewById(R.id.BrokenToggleButton);
         mClimbTogglebutton = (ToggleButton) findViewById(R.id.ClimbToggleButton);
         mParkTogglebutton = (ToggleButton) findViewById(R.id.ParkToggleButton);
+
+        boolean bauto_line = true;
+        if(auto_line == 0)  bauto_line = false;
+
+        boolean bauto_pick = true;
+        if(auto_pick == 0)  bauto_pick = false;
+
+        boolean bauto_switch = true;
+        if(auto_switch == 0)  bauto_switch = false;
+
+        boolean bauto_scale = true;
+        if(auto_scale == 0)  bauto_scale = false;
+
+        boolean bend_help = true;
+        if(end_help == 0)  bend_help = false;
+
+        boolean bend_climb = true;
+        if(end_climb == 0)  bend_climb = false;
+
+        boolean bend_broken = true;
+        if(end_broken == 0)  bend_broken = false;
+
+        boolean bend_park = true;
+        if(end_park == 0)  bend_park = false;
+
+        mLineTogglebutton.setChecked(bauto_line);
+        mPickTogglebutton.setChecked(bauto_pick);
+        mScaleTogglebutton.setChecked(bauto_scale);
+        mSwitchTogglebutton.setChecked(bauto_switch);
+
+        mHelpTogglebutton.setChecked(bend_help);
+        mClimbTogglebutton.setChecked(bend_climb);
+        mBrokenTogglebutton.setChecked(bend_broken);
+        mParkTogglebutton.setChecked(bend_park);
+
+        AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
+        EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
+
+        AllyScoreEditText.setText(alliance_score.toString());
+        EnemyScoreEditText.setText(enemy_score.toString());
+
 
     }
 
@@ -235,22 +332,6 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
         mMatch = Integer.parseInt(matchString);
         mRobot = Integer.parseInt(robotString);
-
-        Integer auto_line;
-        Integer auto_pick;
-        Integer auto_scale;
-        Integer auto_switch;
-
-        Integer end_help;
-        Integer end_broken;
-        Integer end_climb;
-        Integer end_park;
-
-        Integer alliance_score;
-        Integer enemy_score;
-
-        EditText AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
-        EditText EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
 
         String AllianceScoreString = AllyScoreEditText.getText().toString().trim();
         String EnemyScoreString = EnemyScoreEditText.getText().toString().trim();
@@ -324,20 +405,42 @@ public class ScoutMatchActivity extends AppCompatActivity {
         values.put(ScoutEntry.COLUMN_SCOUT_GAME_ALLY_SCORE, alliance_score);
         values.put(ScoutEntry.COLUMN_SCOUT_GAME_ENEMY_SCORE, enemy_score);
 
+        Uri newUri = null;
 
-        // Insert a new scout into the provider, returning the content URI for the new scout.
-        Uri newUri = getContentResolver().insert(ScoutEntry.CONTENT_URI, values);
+        if( mCurrentScoutUri == null) {
 
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newUri == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
-                    Toast.LENGTH_SHORT).show();
+            // Insert a new scout into the provider, returning the content URI for the new scout.
+            newUri = getContentResolver().insert(ScoutEntry.CONTENT_URI, values);
+
+            // Show a toast message depending on whether or not the insertion was successful
+            if (newUri == null) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_insert_scout_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+
         } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, getString(R.string.editor_insert_scout_successful),
-                    Toast.LENGTH_SHORT).show();
+
+            int success;
+            success = getContentResolver().update(mCurrentScoutUri, values, null, null);
+
+            // Show a toast message depending on whether or not the insertion was successful
+            if (success == 0) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_update_scout_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+
         }
+
 
 
 

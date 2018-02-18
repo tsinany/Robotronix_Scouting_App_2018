@@ -97,7 +97,16 @@ public class ReviewMatchActivity extends AppCompatActivity {
                 if( info.getMatch() == 0 ) {
 
                     Intent intent = new Intent(getBaseContext(), ScoutPitActivity.class);
-                    intent.putExtra(EXTRA_DB_ID, info.getDb_id());
+                    // intent.putExtra(EXTRA_DB_ID, info.getDb_id());
+                    Log.d("REVIEW", "position : " + position);
+                    Log.d("REVIEW", "id : " + id);
+                    Log.d("REVIEW", "info match : " + info.getMatch());
+                    Log.d("REVIEW", "info robot : " + info.getRobot());
+
+                    Uri currentScoutUri = ContentUris.withAppendedId(ScoutContract.ScoutEntry.CONTENT_URI, (position+1));
+                    intent.setData(currentScoutUri);
+                    Log.d("REVIEW", "uri : " + currentScoutUri.toString());
+
                     startActivity(intent);
                 } else {
 

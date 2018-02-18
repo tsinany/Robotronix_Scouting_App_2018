@@ -3,9 +3,12 @@ package com.robotronix3550.robotronix_scouting_app;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +20,8 @@ import com.robotronix3550.robotronix_scouting_app.data.ScoutContract;
 import static com.robotronix3550.robotronix_scouting_app.CreateMatchActivity.PREFS_SCOUTER;
 
 public class ScoutPitActivity extends AppCompatActivity {
+
+    public static final String TAG = ScoutPitActivity.class.getSimpleName();
 
     private EditText mRobotEditText;
 
@@ -34,7 +39,28 @@ public class ScoutPitActivity extends AppCompatActivity {
 
     private SharedPreferences mPrefs;
 
+    Uri mCurrentScoutUri;
+
+    Integer mRobot;
+    Integer mMatch;
     String mScouter;
+
+    Integer auto_line;
+    Integer auto_pick;
+    Integer auto_scale;
+    Integer auto_switch;
+
+    Integer tele_exchange;
+    Integer tele_switch;
+    Integer tele_portal;
+    Integer tele_scale;
+
+    Integer tele_pick;
+    Integer tele_climb;
+    Integer tele_help;
+
+    // Integer alliance_score;
+    // Integer enemy_score;
 
 
     @Override
@@ -59,24 +85,146 @@ public class ScoutPitActivity extends AppCompatActivity {
         mTeleClimbTogglebutton = (ToggleButton) findViewById(R.id.TeleClimbToggleButton);
         mTeleHelpClimbTogglebutton = (ToggleButton) findViewById(R.id.TeleHelpToggleButton);
 
+        Intent intent = getIntent();
+        mCurrentScoutUri = intent.getData();
+
+        if( mCurrentScoutUri == null) {
+
+            auto_line = 0;
+            auto_pick = 0;
+            auto_scale = 0;
+            auto_switch = 0;
+
+            tele_exchange = 0;
+            tele_switch = 0;
+            tele_scale = 0;
+            tele_pick = 0;
+            tele_portal = 0;
+            tele_climb = 0;
+            tele_help = 0;
+
+        } else {
+
+            Cursor cursor = null;
+
+            try {
+
+                cursor = getContentResolver().query(mCurrentScoutUri, null, null, null, null);
+
+                String debug = DatabaseUtils.dumpCursorToString(cursor);
+                Log.d(TAG, debug);
+
+                // Find the columns of pet attributes that we're interested in
+                int matchColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_MATCH);
+                int robotColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT);
+                int scouterColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_SCOUTER);
+
+                int autoLineColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_AUTO_LINE);
+                int autoPickColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_AUTO_CUBE);
+                int autoScaleColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_AUTO_SCALE);
+                int autoSwitchColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_AUTO_SWITCH);
+
+                int endHelpColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_HELP_CLIMB);
+                int endClimbColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_CLIMB);
+                int teleExchColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_EXCHANGE);
+                int teleAllySwitchColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_ALLY_SWITCH);
+                int teleScaleColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_SCALE);
+                int telePortalColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_PORTAL);
+                int telePickColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_CUBE);
+
+                /*
+                int count = cursor.getCount();
+                int pos = cursor.getPosition();
+                boolean isAfterLast = cursor.isAfterLast();
+                boolean isBeforeFirst = cursor.isBeforeFirst();
+                boolean isFirst = cursor.isFirst();
+                boolean isLast = cursor.isLast();
+                */
+                cursor.moveToFirst();
+                boolean isFirst = cursor.isFirst();
+
+                // db_id = cursor.getInt(0);
+                mMatch = cursor.getInt(matchColIdx);
+                mRobot = cursor.getInt(robotColIdx);
+                mScouter = cursor.getString(scouterColIdx);
+
+                auto_line = cursor.getInt(autoLineColIdx);
+                auto_pick = cursor.getInt(autoPickColIdx);
+                auto_scale = cursor.getInt(autoScaleColIdx);
+                auto_switch = cursor.getInt(autoSwitchColIdx);
+
+                tele_help = cursor.getInt(endHelpColIdx);
+                tele_climb = cursor.getInt(endClimbColIdx);
+                tele_exchange = cursor.getInt(teleExchColIdx);
+                tele_switch = cursor.getInt(teleAllySwitchColIdx);
+                tele_scale = cursor.getInt(teleScaleColIdx);
+                tele_portal = cursor.getInt(telePortalColIdx);
+                tele_pick = cursor.getInt(telePickColIdx);
+
+                mRobotEditText.setText(mRobot.toString());
+
+
+            }
+            catch(Exception throwable){
+                Log.e(TAG, "Could not get data from cursor", throwable);
+            }
+            finally {
+                if(cursor!=null)
+                    cursor.close();
+            }
+        }
+
+        boolean bauto_line = true;
+        if(auto_line == 0) bauto_line = false;
+
+        boolean bauto_pick = true;
+        if(auto_pick == 0) bauto_pick = false;
+
+        boolean bauto_scale = true;
+        if(auto_scale == 0) bauto_scale = false;
+
+        boolean bauto_switch = true;
+        if(auto_switch == 0) bauto_switch = false;
+
+        boolean btele_exchange = true;
+        if(tele_exchange == 0) btele_exchange = false;
+
+        boolean btele_switch = true;
+        if(tele_switch == 0) btele_switch = false;
+
+        boolean btele_scale = true;
+        if(tele_scale == 0) btele_scale = false;
+
+        boolean btele_pick = true;
+        if(tele_pick == 0) btele_pick = false;
+
+        boolean btele_portal = true;
+        if(tele_portal == 0) btele_portal = false;
+
+        boolean btele_climb = true;
+        if(tele_climb == 0) btele_climb = false;
+
+        boolean btele_help = true;
+        if(tele_help == 0) btele_help = false;
+
+        mAutoLineTogglebutton.setChecked(bauto_line);
+        mAutoSwitchTogglebutton.setChecked(bauto_switch);
+        mAutoScaleTogglebutton.setChecked(bauto_scale);
+        mAutoPickTogglebutton.setChecked(bauto_pick);
+        mTeleExchangeTogglebutton.setChecked(btele_exchange);
+        mTeleSwitchTogglebutton.setChecked(btele_switch);
+        mTeleScaleTogglebutton.setChecked(btele_scale);
+        mTelePickTogglebutton.setChecked(btele_pick);
+        mTelePortalTogglebutton.setChecked(btele_portal);
+        mTeleClimbTogglebutton.setChecked(btele_climb);
+        mTeleHelpClimbTogglebutton.setChecked(btele_climb);
+
     }
 
     public void savePit(View view) {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
 
-        Integer auto_line;
-        Integer auto_pick;
-        Integer auto_scale;
-        Integer auto_switch;
-
-        Integer tele_exchange;
-        Integer tele_switch;
-        Integer tele_scale;
-        Integer tele_pick;
-        Integer tele_portal;
-        Integer tele_climb;
-        Integer tele_help;
 
         if(mAutoLineTogglebutton.isChecked())
             auto_line = 1;
@@ -177,20 +325,38 @@ public class ScoutPitActivity extends AppCompatActivity {
             values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_GAME_ENEMY_SCORE, 0);
 
 
-            // Insert a new scout into the provider, returning the content URI for the new scout.
-            Uri newUri = getContentResolver().insert(ScoutContract.ScoutEntry.CONTENT_URI, values);
+            if( mCurrentScoutUri == null ) {
+                // Insert a new scout into the provider, returning the content URI for the new scout.
+                Uri newUri = getContentResolver().insert(ScoutContract.ScoutEntry.CONTENT_URI, values);
 
-            // Show a toast message depending on whether or not the insertion was successful
-            if (newUri == null) {
-                // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
-                        Toast.LENGTH_SHORT).show();
+                // Show a toast message depending on whether or not the insertion was successful
+                if (newUri == null) {
+                    // If the new content URI is null, then there was an error with insertion.
+                    Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Otherwise, the insertion was successful and we can display a toast.
+                    Toast.makeText(this, getString(R.string.editor_insert_scout_successful),
+                            Toast.LENGTH_SHORT).show();
+                }
             } else {
-                // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_insert_scout_successful),
-                        Toast.LENGTH_SHORT).show();
-            }
 
+                int success;
+                success = getContentResolver().update(mCurrentScoutUri, values, null, null);
+
+                // Show a toast message depending on whether or not the insertion was successful
+                if (success == 0) {
+                    // If the new content URI is null, then there was an error with insertion.
+                    Toast.makeText(this, getString(R.string.editor_insert_scout_failed),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Otherwise, the insertion was successful and we can display a toast.
+                    Toast.makeText(this, getString(R.string.editor_update_scout_successful),
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

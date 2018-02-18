@@ -13,7 +13,10 @@
 
 
     <!-- Toast message in editor when new scout has been successfully inserted [CHAR LIMIT=NONE] -->
-    <string name="editor_insert_scout_successful">Scout saved</string>
+    <string name="editor_insert_scout_successful">Scout info saved</string>
+
+    <!-- Toast message in editor when new scout has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_update_scout_successful">Scout info updated</string>
 
     <!-- Toast message in editor when new scout has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_scout_failed">Error with saving scout</string>
