@@ -85,6 +85,27 @@ public class ScoutMatchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mCurrentScoutUri = intent.getData();
 
+        // Capture the layout's TextView and set the string as its text
+        mMatchEditText = findViewById(R.id.MatchEditText);
+        mRobotEditText = findViewById(R.id.RobotEditText);
+        mCubeExchangeText = (TextView) findViewById(R.id.ExchangeCntTextView);
+        mCubeAllySwitchText = (TextView) findViewById(R.id.AllySwitchTextView);
+        mCubeEnemySwitchText = (TextView) findViewById(R.id.EnemySwitchCntTextView);
+        mCubeScaleText = (TextView) findViewById(R.id.ScaleCntTextView);
+
+        mLineTogglebutton = (ToggleButton) findViewById(R.id.LineToggleButton);
+        mPickTogglebutton = (ToggleButton) findViewById(R.id.PickToggleButton);
+        mScaleTogglebutton = (ToggleButton) findViewById(R.id.ScaleToggleButton);
+        mSwitchTogglebutton = (ToggleButton) findViewById(R.id.SwitchToggleButton);
+        mHelpTogglebutton = (ToggleButton) findViewById(R.id.HelpToggleButton);
+        mBrokenTogglebutton = (ToggleButton) findViewById(R.id.BrokenToggleButton);
+        mClimbTogglebutton = (ToggleButton) findViewById(R.id.ClimbToggleButton);
+        mParkTogglebutton = (ToggleButton) findViewById(R.id.ParkToggleButton);
+
+        AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
+        EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
+
+
         if( mCurrentScoutUri == null) {
             mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
             mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
@@ -180,6 +201,8 @@ public class ScoutMatchActivity extends AppCompatActivity {
                 alliance_score = cursor.getInt(gameAllyScoreColIdx);
                 enemy_score = cursor.getInt(gameEnemyScoreColIdx);
 
+                AllyScoreEditText.setText(alliance_score.toString());
+                EnemyScoreEditText.setText(enemy_score.toString());
 
             }
             catch(Exception throwable){
@@ -192,34 +215,12 @@ public class ScoutMatchActivity extends AppCompatActivity {
         }
 
         // Capture the layout's TextView and set the string as its text
-        mMatchEditText = findViewById(R.id.MatchEditText);
         mMatchEditText.setText(mMatch.toString());
-
-        mRobotEditText = findViewById(R.id.RobotEditText);
         mRobotEditText.setText(mRobot.toString());
-
-
-        mCubeExchangeText = (TextView) findViewById(R.id.ExchangeCntTextView);
         mCubeExchangeText.setText(mCubeExchangeCnt.toString());
-
-        mCubeAllySwitchText = (TextView) findViewById(R.id.AllySwitchTextView);
         mCubeAllySwitchText.setText(mCubeAllySwitchCnt.toString());
-
-        mCubeEnemySwitchText = (TextView) findViewById(R.id.EnemySwitchCntTextView);
         mCubeEnemySwitchText.setText(mCubeEnemySwitchCnt.toString());
-
-        mCubeScaleText = (TextView) findViewById(R.id.ScaleCntTextView);
         mCubeScaleText.setText(mCubeScaleCnt.toString());
-
-
-        mLineTogglebutton = (ToggleButton) findViewById(R.id.LineToggleButton);
-        mPickTogglebutton = (ToggleButton) findViewById(R.id.PickToggleButton);
-        mScaleTogglebutton = (ToggleButton) findViewById(R.id.ScaleToggleButton);
-        mSwitchTogglebutton = (ToggleButton) findViewById(R.id.SwitchToggleButton);
-        mHelpTogglebutton = (ToggleButton) findViewById(R.id.HelpToggleButton);
-        mBrokenTogglebutton = (ToggleButton) findViewById(R.id.BrokenToggleButton);
-        mClimbTogglebutton = (ToggleButton) findViewById(R.id.ClimbToggleButton);
-        mParkTogglebutton = (ToggleButton) findViewById(R.id.ParkToggleButton);
 
         boolean bauto_line = true;
         if(auto_line == 0)  bauto_line = false;
@@ -254,13 +255,6 @@ public class ScoutMatchActivity extends AppCompatActivity {
         mClimbTogglebutton.setChecked(bend_climb);
         mBrokenTogglebutton.setChecked(bend_broken);
         mParkTogglebutton.setChecked(bend_park);
-
-        AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
-        EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
-
-        AllyScoreEditText.setText(alliance_score.toString());
-        EnemyScoreEditText.setText(enemy_score.toString());
-
 
     }
 

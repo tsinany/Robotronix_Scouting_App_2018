@@ -6,52 +6,144 @@
     android:layout_height="match_parent"
     tools:context="com.robotronix3550.robotronix_scouting_app.MainActivity">
 
-    <Button
-        android:id="@+id/scoutMatchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="139dp"
-        android:layout_marginTop="164dp"
-        android:onClick="createMatch"
-        android:text="Scouter un Match"
-        app:layout_constraintBottom_toTopOf="@+id/reviewMatchButton"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/reviewMatchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginBottom="140dp"
-        android:onClick="reviewMatch"
-        android:text="Réviser un match"
-        app:layout_constraintBottom_toTopOf="@+id/scoutPitButton"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/scoutPitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
-        android:onClick="scoutPit"
-        android:text="Scouter un Puit"
-        app:layout_constraintBottom_toTopOf="@+id/SettingButton"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/SettingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="112dp"
-        android:onClick="createSetting"
-        android:text="Paramètres"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Power UP"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/scoutMatchButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:onClick="createMatch"
+                android:text="Scouter un Match"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:layout_editor_absoluteY="164dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/reviewMatchButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:onClick="reviewMatch"
+                android:text="Réviser un match"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_editor_absoluteY="351dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/scoutPitButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:onClick="scoutPit"
+                android:text="Scouter un Puit"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_editor_absoluteY="539dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/SettingButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:onClick="createSetting"
+                android:text="Paramètres"
+                android:textSize="18sp"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_editor_absoluteY="727dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,9 +17,16 @@ import android.widget.Toast;
 
 import com.robotronix3550.robotronix_scouting_app.data.ScoutContract;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class CreateSettingActivity extends AppCompatActivity {
 
     public static final String EXTRA_TABLET = "com.robotronix3550.robotronix_scouting_app.TABLET";
+    public static final String TAG = CreateSettingActivity.class.getSimpleName();
 
     /** EditText field to enter the event name */
     private EditText mEventEditText;
@@ -34,7 +43,7 @@ public class CreateSettingActivity extends AppCompatActivity {
 
     private SharedPreferences mPrefs;
 
-
+    private MediaScannerConnection mConnection;
 
 
 
@@ -68,8 +77,12 @@ public class CreateSettingActivity extends AppCompatActivity {
         mPathEditText.setText("/Storage/Documents/scouting");
 
         TextView fileNameTextView = findViewById(R.id.fileNameTextView);
-        mFileName =  "scout_" + mEventEditText.getText().toString().trim() +
-                    "_" + mTabletNameEditText.getText().toString().trim() + ".csv";
+
+        String DefaultFileName =  "scout_" + mEventEditText.getText().toString().trim() +
+                "_" + mTabletNameEditText.getText().toString().trim() + ".csv";
+
+        mFileName = mPrefs.getString("PREF_FILENAME", DefaultFileName);
+
         fileNameTextView.setText(mFileName);
 
     }
@@ -94,7 +107,15 @@ public class CreateSettingActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
         } else {
-            mFileName = "scout_" + eventString + "_" + mTablet + ".csv";
+
+            /* Create unique file as media rescan doesn't work well with same file name
+            *  that potentially copy-paste the previous .csv file and not the latest updated one
+            *
+            * */
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-hh-mm");
+            String format = simpleDateFormat.format(new Date());
+
+            mFileName = "scout_" + eventString + "_" + mTablet + "_" + format + ".csv";
 
             // Insert a new scout into the provider, returning the content URI for the new scout.
             Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", mFileName, null);
@@ -109,7 +130,44 @@ public class CreateSettingActivity extends AppCompatActivity {
                 // Otherwise, the insertion was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.exportDB_scout_successful),
                         Toast.LENGTH_LONG).show();
+
+                /* Media Scan doesn't work */
+                /*
+                String ScanPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath().toString();
+                String ScanPathFile = (ScanPath + "/" + mFileName);
+
+                ArrayList<String> toBeScanned = new ArrayList<String>();
+                // toBeScanned.add("/Storage/Documents/scouting");
+                toBeScanned.add(ScanPath);
+                toBeScanned.add(ScanPathFile);
+
+                String[] toBeScannedStr = new String[toBeScanned.size()];
+                toBeScannedStr = toBeScanned.toArray(toBeScannedStr);
+
+                // String toBeScannedStr =
+                MediaScannerConnection.scanFile(getBaseContext(), toBeScannedStr, null, new MediaScannerConnection.OnScanCompletedListener() {
+
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        System.out.println("SCAN COMPLETED: " + path);
+                        //Toast.makeText(this, getString(R.string.exportDB_scout_successful),
+                        Toast.makeText(getBaseContext(), ("SCAN COMPLETED: " + path),
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+                mConnection.connect();
+
+                mConnection.scanFile(ScanPathFile, null);
+                mConnection.scanFile(ScanPath, null);
+
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + ScanPathFile)));
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + ScanPath)));
+                */
+
             }
+
 
             Intent intent = new Intent(this, MainActivity.class);
             //intent.putExtra(EXTRA_TABLET, mTablet);
@@ -117,6 +175,7 @@ public class CreateSettingActivity extends AppCompatActivity {
             SharedPreferences.Editor ed = mPrefs.edit();
             //mTablet = mTabletNameEditText.getText().toString().trim();
             ed.putString("PREF_TABLET", mTablet);
+            ed.putString("PREF_FILENAME", mFileName);
             ed.commit();
 
             startActivity(intent);

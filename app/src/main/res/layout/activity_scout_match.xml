@@ -561,7 +561,6 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number"
-                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textSize="24sp" />
 
@@ -607,7 +606,6 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number"
-                android:text="0"
                 android:textAlignment="viewEnd"
                 android:textSize="24sp" />
 
