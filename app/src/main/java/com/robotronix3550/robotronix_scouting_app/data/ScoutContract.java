@@ -185,6 +185,19 @@ public final class ScoutContract {
         public final static String COLUMN_SCOUT_GAME_ENEMY_SCORE = "enemy_score";
 
         /**
+         * Scouter name
+         * Type: TEXT
+         */
+        public final static String COLUMN_SCOUT_ROBOT_DRIVETRAIN ="robot_drivetrain";
+
+        /**
+         * Game score for the enemy
+         * Type: INTEGER
+         */
+        public final static String COLUMN_SCOUT_ROBOT_WEIGHT = "robot_weight";
+
+
+        /**
          * Returns robot is valid.
          */
         public static boolean isValidRobot(int robot) {

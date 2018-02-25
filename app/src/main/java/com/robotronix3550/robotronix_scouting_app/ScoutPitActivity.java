@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class ScoutPitActivity extends AppCompatActivity {
     public static final String TAG = ScoutPitActivity.class.getSimpleName();
 
     private EditText mRobotEditText;
+    private EditText mNameEditText;
+    private EditText mRobotDrivetrainEditText;
+    private EditText mRobotWeightEditText;
 
     private ToggleButton mAutoLineTogglebutton;
     private ToggleButton mAutoSwitchTogglebutton;
@@ -42,8 +46,10 @@ public class ScoutPitActivity extends AppCompatActivity {
     Uri mCurrentScoutUri;
 
     Integer mRobot;
+    String  mDrivetrain;
+    Integer mWeight;
     Integer mMatch;
-    String mScouter;
+    String  mScouter;
 
     Integer auto_line;
     Integer auto_pick;
@@ -72,6 +78,10 @@ public class ScoutPitActivity extends AppCompatActivity {
         mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
 
         mRobotEditText = (EditText) findViewById(R.id.RobotEditText);
+        mNameEditText = (EditText) findViewById(R.id.PitScoutEditText);
+
+        mRobotDrivetrainEditText = (EditText) findViewById(R.id.DrivetrainEditText);
+        mRobotWeightEditText = (EditText) findViewById(R.id.WeightEditText);
 
         mAutoLineTogglebutton = (ToggleButton) findViewById(R.id.AutoLineToggleButton);
         mAutoSwitchTogglebutton = (ToggleButton) findViewById(R.id.AutoSwitchToggleButton);
@@ -117,6 +127,8 @@ public class ScoutPitActivity extends AppCompatActivity {
                 // Find the columns of pet attributes that we're interested in
                 int matchColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_MATCH);
                 int robotColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT);
+                int weightColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT_WEIGHT);
+                int drivetrainColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT_DRIVETRAIN);
                 int scouterColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_SCOUTER);
 
                 int autoLineColIdx = cursor.getColumnIndex(ScoutContract.ScoutEntry.COLUMN_SCOUT_AUTO_LINE);
@@ -146,6 +158,8 @@ public class ScoutPitActivity extends AppCompatActivity {
                 // db_id = cursor.getInt(0);
                 mMatch = cursor.getInt(matchColIdx);
                 mRobot = cursor.getInt(robotColIdx);
+                mDrivetrain = cursor.getString(drivetrainColIdx);
+                mWeight = cursor.getInt(weightColIdx);
                 mScouter = cursor.getString(scouterColIdx);
 
                 auto_line = cursor.getInt(autoLineColIdx);
@@ -162,6 +176,8 @@ public class ScoutPitActivity extends AppCompatActivity {
                 tele_pick = cursor.getInt(telePickColIdx);
 
                 mRobotEditText.setText(mRobot.toString());
+                mRobotDrivetrainEditText.setText(mDrivetrain.toString());
+                mRobotWeightEditText.setText(mWeight.toString());
 
 
             }
@@ -218,6 +234,9 @@ public class ScoutPitActivity extends AppCompatActivity {
         mTelePortalTogglebutton.setChecked(btele_portal);
         mTeleClimbTogglebutton.setChecked(btele_climb);
         mTeleHelpClimbTogglebutton.setChecked(btele_climb);
+
+        mNameEditText.setText(mScouter);
+
 
     }
 
@@ -282,19 +301,31 @@ public class ScoutPitActivity extends AppCompatActivity {
         else
             tele_help = 0;
 
+        mScouter = mNameEditText.getText().toString().trim();
 
         String robotString = mRobotEditText.getText().toString().trim();
         Integer robot;
+
+        String weightString = mRobotWeightEditText.getText().toString().trim();
+        Integer weight;
+
+        String robotDrivetrainString = mRobotDrivetrainEditText.getText().toString().trim();
 
         if (robotString.equals("")) {
 
             Toast.makeText(this, getString(R.string.missing_robot_failed),
                     Toast.LENGTH_LONG).show();
 
+        } else if (mScouter.equals("")) {
+
+            Toast.makeText(this, getString(R.string.missing_scouter_failed),
+                    Toast.LENGTH_LONG).show();
+
         } else {
 
 
             robot = Integer.parseInt(robotString);
+            weight = Integer.parseInt(weightString);
 
             // Create a ContentValues object where column names are the keys,
             // and scout attributes from the editor are the values.
@@ -320,9 +351,12 @@ public class ScoutPitActivity extends AppCompatActivity {
             values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_PARK, 0);
             values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_TELE_BROKEN, 0);
 
-
             values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_GAME_ALLY_SCORE, 0);
             values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_GAME_ENEMY_SCORE, 0);
+
+            values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT_DRIVETRAIN, robotDrivetrainString);
+            values.put(ScoutContract.ScoutEntry.COLUMN_SCOUT_ROBOT_WEIGHT, weight);
+
 
 
             if( mCurrentScoutUri == null ) {
@@ -357,10 +391,39 @@ public class ScoutPitActivity extends AppCompatActivity {
 
 
             }
+
+            SharedPreferences.Editor ed = mPrefs.edit();
+            ed.putString("PREF_SCOUTER", mScouter);
+            ed.commit();
+
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }
 
+    @Override
+    public void onBackPressed(){
+
+        // Intent intent = new Intent(this, MainActivity.class);
+        // mScouter = mNameEditText.getText().toString().trim();
+        // intent.putExtra(EXTRA_SCOUTER, mScouter);
+
+        SharedPreferences.Editor ed = mPrefs.edit();
+        mScouter = mNameEditText.getText().toString().trim();
+        ed.putString("PREF_SCOUTER", mScouter);
+        ed.commit();
+
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
+    }
 
 }

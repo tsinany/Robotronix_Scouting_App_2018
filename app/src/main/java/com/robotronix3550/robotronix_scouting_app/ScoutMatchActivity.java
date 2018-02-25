@@ -105,8 +105,35 @@ public class ScoutMatchActivity extends AppCompatActivity {
         AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
         EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
 
+        if( savedInstanceState != null ) {
 
-        if( mCurrentScoutUri == null) {
+            mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
+            mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
+
+            // mPrefs = getPreferences(MODE_PRIVATE);
+            mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE);
+            mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
+
+            mCubeScaleCnt = savedInstanceState.getInt("Scale_count");
+            mCubeExchangeCnt = savedInstanceState.getInt("Exchange_count");
+            mCubeAllySwitchCnt = savedInstanceState.getInt("Ally_switch_count");
+            mCubeEnemySwitchCnt = savedInstanceState.getInt("Enemy_switch_count");
+
+            auto_line = 0;
+            auto_pick = 0;
+            auto_scale = 0;
+            auto_switch = 0;
+
+            end_help = 0;
+            end_broken = 0;
+            end_climb = 0;
+            end_park = 0;
+
+            alliance_score = 0;
+            enemy_score = 0;
+
+        } else if( mCurrentScoutUri == null) {
+
             mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
             mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
 
@@ -315,6 +342,21 @@ public class ScoutMatchActivity extends AppCompatActivity {
         cubeScaleText.setText(mCubeScaleCnt.toString());
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+
+        super.onSaveInstanceState(outState);
+        outState.putInt("Scale_count", Integer.parseInt(mCubeScaleText.getText().toString().trim()));
+        outState.putInt("Ally_switch_count", Integer.parseInt(mCubeAllySwitchText.getText().toString().trim()));
+        outState.putInt("Enemy_switch_count", Integer.parseInt(mCubeEnemySwitchText.getText().toString().trim()));
+        outState.putInt("Exchange_count", Integer.parseInt(mCubeExchangeText.getText().toString().trim()));
+        // outState.putInt("Ally_score", Integer.parseInt(AllyScoreEditText.getText().toString().trim()));
+        // outState.putInt("Enemy_score", Integer.parseInt(EnemyScoreEditText.getText().toString().trim()));
+
+
+
+    }
 
     public void saveMatch(View view) {
         // Read from input fields

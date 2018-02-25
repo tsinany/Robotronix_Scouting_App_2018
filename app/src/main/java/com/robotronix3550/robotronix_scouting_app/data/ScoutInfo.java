@@ -30,6 +30,9 @@ public class ScoutInfo {
     Integer game_ally_score;
     Integer game_enemy_score;
 
+    String  robot_drivetrain;
+    Integer robot_weight;
+
     Integer robotImageId;
 
     public ScoutInfo(Integer id, Integer match, Integer robot) {
@@ -196,6 +199,22 @@ public class ScoutInfo {
 
     public void setGame_enemy_score(Integer game_enemy_score) {
         this.game_enemy_score = game_enemy_score;
+    }
+
+    public String getRobot_drivetrain() {
+        return robot_drivetrain;
+    }
+
+    public void setRobot_drivetrain(String robot_drivetrain) {
+        this.robot_drivetrain = robot_drivetrain;
+    }
+
+    public Integer getRobot_weight() {
+        return robot_weight;
+    }
+
+    public void setRobot_weight(Integer robot_weight) {
+        this.robot_weight = robot_weight;
     }
 
     public Integer getRobotImageId() {
