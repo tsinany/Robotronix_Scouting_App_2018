@@ -10,9 +10,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    String mScouter;
+    //String mScouter;
 
-    String mTablet;
+    // String mTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        mScouter = intent.getStringExtra(CreateMatchActivity.EXTRA_SCOUTER);
-        mTablet = intent.getStringExtra(CreateSettingActivity.EXTRA_TABLET);
+        // mScouter = intent.getStringExtra(CreateMatchActivity.EXTRA_SCOUTER);
+        // mTablet = intent.getStringExtra(CreateSettingActivity.EXTRA_TABLET);
 
     }
 

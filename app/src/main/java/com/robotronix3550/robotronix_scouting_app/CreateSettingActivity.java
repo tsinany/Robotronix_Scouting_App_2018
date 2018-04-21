@@ -25,9 +25,6 @@ import java.util.Date;
 
 public class CreateSettingActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TABLET = "com.robotronix3550.robotronix_scouting_app.TABLET";
-    public static final String TAG = CreateSettingActivity.class.getSimpleName();
-
     /** EditText field to enter the event name */
     private EditText mEventEditText;
 
@@ -38,6 +35,8 @@ public class CreateSettingActivity extends AppCompatActivity {
     private TextView mPathEditText;
 
     private String mFileName;
+
+    private String mEvent;
 
     private String mTablet;
 
@@ -56,10 +55,9 @@ public class CreateSettingActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         mPrefs = getPreferences(MODE_PRIVATE);
+        // mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE);
         mTablet = mPrefs.getString("PREF_TABLET", "tab1");
-
-        //mTablet = intent.getStringExtra(EXTRA_TABLET);
-        //if (mTablet == null) mTablet = "tab1";
+        mEvent = mPrefs.getString("PREF_EVENT", "det");
 
         String message = "Paramètres";
 
@@ -67,9 +65,10 @@ public class CreateSettingActivity extends AppCompatActivity {
         TextView titleTextView = findViewById(R.id.titleSettingTextView);
         titleTextView.setText(message);
 
-        // mDbHelper = new ScoutDBHelper(getContext());
         // Find all relevant views that we will need to read user input from
         mEventEditText = (EditText) findViewById(R.id.eventNameTextEdit);
+        mEventEditText.setText(mEvent);
+
         mTabletNameEditText = (EditText) findViewById(R.id.tabletNameEditText);
         mTabletNameEditText.setText(mTablet);
 
@@ -89,14 +88,12 @@ public class CreateSettingActivity extends AppCompatActivity {
 
     public void exportDB(View view) {
 
-
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        String eventString = mEventEditText.getText().toString().trim();
+        mEvent = mEventEditText.getText().toString().trim();
         mTablet = mTabletNameEditText.getText().toString().trim();
-        //String pathString = mPathEditText.getText().toString().trim();
 
-        if( eventString.equals("")) {
+        if( mEvent.equals("")) {
 
             Toast.makeText(this, getString(R.string.missing_event_failed),
                     Toast.LENGTH_LONG).show();
@@ -115,11 +112,10 @@ public class CreateSettingActivity extends AppCompatActivity {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-hh-mm");
             String format = simpleDateFormat.format(new Date());
 
-            mFileName = "scout_" + eventString + "_" + mTablet + "_" + format + ".csv";
+            mFileName = "scout_" + mEvent + "_" + mTablet + "_" + format + ".csv";
 
             // Insert a new scout into the provider, returning the content URI for the new scout.
             Bundle bu = getContentResolver().call(ScoutContract.ScoutEntry.CONTENT_URI, "exportDB", mFileName, null);
-            //getContentResolver().insert(ScoutContract.ScoutEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful
             if (bu == null) {
@@ -168,16 +164,13 @@ public class CreateSettingActivity extends AppCompatActivity {
 
             }
 
-
-            Intent intent = new Intent(this, MainActivity.class);
-            //intent.putExtra(EXTRA_TABLET, mTablet);
-
             SharedPreferences.Editor ed = mPrefs.edit();
-            //mTablet = mTabletNameEditText.getText().toString().trim();
             ed.putString("PREF_TABLET", mTablet);
+            ed.putString("PREF_EVENT", mEvent);
             ed.putString("PREF_FILENAME", mFileName);
             ed.commit();
 
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
 
@@ -186,15 +179,13 @@ public class CreateSettingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
 
-        //Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra(EXTRA_TABLET, mTablet);
+        mTablet = mTabletNameEditText.getText().toString().trim();
+        mEvent = mEventEditText.getText().toString().trim();
 
         SharedPreferences.Editor ed = mPrefs.edit();
-        mTablet = mTabletNameEditText.getText().toString().trim();
         ed.putString("PREF_TABLET", mTablet);
+        ed.putString("PREF_EVENT", mEvent);
         ed.commit();
-        //Toast.makeText(this, "saving preferences " + mTablet,
-        //        Toast.LENGTH_LONG).show();
 
         super.onBackPressed();
         finish();

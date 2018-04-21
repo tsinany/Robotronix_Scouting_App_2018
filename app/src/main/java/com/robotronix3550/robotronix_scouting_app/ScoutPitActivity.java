@@ -74,7 +74,8 @@ public class ScoutPitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scout_pit);
 
-        mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE );
+        // mPrefs = getPreferences(MODE_PRIVATE );
+        mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE);
         mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
 
         mRobotEditText = (EditText) findViewById(R.id.RobotEditText);

@@ -105,14 +105,17 @@ public class ScoutMatchActivity extends AppCompatActivity {
         AllyScoreEditText = findViewById(R.id.AllyScoreEditText);
         EnemyScoreEditText = findViewById(R.id.EnemyScoreEditText);
 
+        // Comes from rotating the tablet
+        //
         if( savedInstanceState != null ) {
 
-            mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
+            // mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
             mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
 
             // mPrefs = getPreferences(MODE_PRIVATE);
             mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE);
             mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
+            mMatch = mPrefs.getInt("PREF_MATCH", 98);
 
             mCubeScaleCnt = savedInstanceState.getInt("Scale_count");
             mCubeExchangeCnt = savedInstanceState.getInt("Exchange_count");
@@ -134,12 +137,17 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
         } else if( mCurrentScoutUri == null) {
 
-            mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
+            // Comes from the CreateMatchActivity
+            //
+
+            //mMatch = intent.getIntExtra(CreateMatchActivity.EXTRA_MATCH, 0);
             mRobot = intent.getIntExtra(CreateMatchActivity.EXTRA_ROBOT, 0);
 
-            // mPrefs = getPreferences(MODE_PRIVATE);
+            //mPrefs = getPreferences(MODE_PRIVATE);
             mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE);
             mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
+            mMatch = mPrefs.getInt("PREF_MATCH", 0); // increment match number
+
 
             mCubeExchangeCnt = 0;
             mCubeAllySwitchCnt = 0;
@@ -160,6 +168,8 @@ public class ScoutMatchActivity extends AppCompatActivity {
             enemy_score = 0;
 
         } else {
+            // Get Data Database (from ReviewMatchActivity)
+            //
 
             String[] column = null;  // return all columns
             String selection = null; // db_id.toString(); // return all rows
@@ -371,8 +381,17 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
         String AllianceScoreString = AllyScoreEditText.getText().toString().trim();
         String EnemyScoreString = EnemyScoreEditText.getText().toString().trim();
-        alliance_score = Integer.parseInt(AllianceScoreString);
-        enemy_score = Integer.parseInt(EnemyScoreString);
+
+        if (AllianceScoreString.equals("")) {
+            alliance_score = 0;
+        } else {
+            alliance_score = Integer.parseInt(AllianceScoreString);
+        }
+        if (EnemyScoreString.equals("")) {
+            enemy_score = 0;
+        } else {
+            enemy_score = Integer.parseInt(EnemyScoreString);
+        }
 
         if(mLineTogglebutton.isChecked())
             auto_line = 1;
@@ -477,8 +496,9 @@ public class ScoutMatchActivity extends AppCompatActivity {
 
         }
 
-
-
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putInt("PREF_MATCH", mMatch);
+        ed.commit();
 
         Intent intent = new Intent(this, MainActivity.class);
         //intent.putExtra(CreateMatchActivity.EXTRA_SCOUTER, mScouter);

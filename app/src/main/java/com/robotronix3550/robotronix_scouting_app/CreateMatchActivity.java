@@ -27,13 +27,15 @@ public class CreateMatchActivity extends AppCompatActivity {
 
     String mScouter;
 
+    Integer mMatch;
+
     private SharedPreferences mPrefs;
+
     public static final String PREFS_SCOUTER = "MyPrefScouterFile";
 
+    // public static final String EXTRA_SCOUTER = "com.robotronix3550.robotronix_scouting_app.SCOUTER";
 
-    public static final String EXTRA_SCOUTER = "com.robotronix3550.robotronix_scouting_app.SCOUTER";
-
-    public static final String EXTRA_MATCH = "com.robotronix3550.robotronix_scouting_app.MATCH";
+    // public static final String EXTRA_MATCH = "com.robotronix3550.robotronix_scouting_app.MATCH";
 
     public static final String EXTRA_ROBOT = "com.robotronix3550.robotronix_scouting_app.ROBOT";
 
@@ -44,11 +46,11 @@ public class CreateMatchActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        //mScouter = intent.getStringExtra(EXTRA_SCOUTER);
-        //if(mScouter==null) mScouter = "Name";
-        mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE );
-        mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
 
+        // mPrefs = getPreferences(MODE_PRIVATE);
+        mPrefs = getSharedPreferences(PREFS_SCOUTER, MODE_PRIVATE);
+        mScouter = mPrefs.getString("PREF_SCOUTER", "Prenom");
+        mMatch = mPrefs.getInt("PREF_MATCH", 0) + 1; // increment match number
 
         String message = "Scouter un Match";
 
@@ -61,7 +63,9 @@ public class CreateMatchActivity extends AppCompatActivity {
         mMatchEditText = (EditText) findViewById(R.id.matchNoEditText);
         mRobotEditText = (EditText) findViewById(R.id.robotNoEditText);
 
+        // Display value on text widget
         mNameEditText.setText(mScouter);
+        mMatchEditText.setText(mMatch.toString());
 
     }
 
@@ -99,16 +103,17 @@ public class CreateMatchActivity extends AppCompatActivity {
 
         }else {
 
-            match = Integer.parseInt(matchString);
+            mMatch = Integer.parseInt(matchString);
             robot = Integer.parseInt(robotString);
 
             SharedPreferences.Editor ed = mPrefs.edit();
             ed.putString("PREF_SCOUTER", mScouter);
+            ed.putInt("PREF_MATCH", mMatch);
             ed.commit();
 
             Intent intent = new Intent(this, ScoutMatchActivity.class);
-            //intent.putExtra(EXTRA_SCOUTER, mScouter);
-            intent.putExtra(EXTRA_MATCH, match);
+            // intent.putExtra(EXTRA_SCOUTER, mScouter);
+            // intent.putExtra(EXTRA_MATCH, match);
             intent.putExtra(EXTRA_ROBOT, robot);
 
             startActivity(intent);
@@ -125,7 +130,12 @@ public class CreateMatchActivity extends AppCompatActivity {
 
         SharedPreferences.Editor ed = mPrefs.edit();
         mScouter = mNameEditText.getText().toString().trim();
+
+        String matchString = mMatchEditText.getText().toString().trim();
+        mMatch = Integer.parseInt(matchString);
+
         ed.putString("PREF_SCOUTER", mScouter);
+        ed.putInt("PREF_MATCH", mMatch);
         ed.commit();
 
         super.onBackPressed();
