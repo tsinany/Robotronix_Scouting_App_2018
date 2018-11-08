@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1A237E"
     tools:context="com.robotronix3550.robotronix_scouting_app.MainActivity">
 
     <LinearLayout
@@ -13,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <Space
@@ -28,12 +29,36 @@
                 android:layout_weight="1"
                 android:text="Power UP"
                 android:textAlignment="center"
+                android:textColor="#ffffff"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/robotronixlogo" />
+
+            <Space
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1" />
         </LinearLayout>
 
