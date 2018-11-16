@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CreateSettingActivity extends AppCompatActivity {
+    public Integer fl = 1;
 
     /** EditText field to enter the event name */
     private EditText mEventEditText;
@@ -83,6 +84,14 @@ public class CreateSettingActivity extends AppCompatActivity {
         mFileName = mPrefs.getString("PREF_FILENAME", DefaultFileName);
 
         fileNameTextView.setText(mFileName);
+
+    }
+    public void fonction1(View view){
+        // mEvent = mEventEditText.getText().toString().trim();
+        mEvent="finger lakes";
+        fl++;
+        mEvent ="finger lakes"+ fl.toString();
+        mEventEditText.setText(mEvent);
 
     }
 
